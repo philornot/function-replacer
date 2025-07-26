@@ -168,16 +168,19 @@ h2::before {
 .file-info {
     margin-top: 15px;
     padding: 16px 20px;
-    background: linear-gradient(45deg, #e8f5e8, #f0f8f0);
+    background: #e8f5e8;
     border-radius: 12px;
     border-left: 4px solid #4caf50;
     animation: slideIn 0.3s ease;
+    color: #1b5e20;
+    font-weight: 500;
 }
 
 .file-info.error {
-    background: linear-gradient(45deg, #ffeaea, #fff0f0);
+    background: #ffebee;
     border-left-color: #f44336;
-    color: #d32f2f;
+    color: #c62828;
+    font-weight: 500;
 }
 
 @keyframes slideIn {
@@ -291,21 +294,24 @@ h2::before {
 }
 
 .status.success {
-    background: linear-gradient(45deg, #e8f5e8, #f0f8f0);
-    color: #2e7d32;
+    background: #e8f5e8;
+    color: #1b5e20;
     border: 1px solid #4caf50;
+    font-weight: 600;
 }
 
 .status.error {
-    background: linear-gradient(45deg, #ffeaea, #fff0f0);
-    color: #d32f2f;
+    background: #ffebee;
+    color: #c62828;
     border: 1px solid #f44336;
+    font-weight: 600;
 }
 
 .status.processing {
-    background: linear-gradient(45deg, #fff3cd, #fffacd);
-    color: #856404;
-    border: 1px solid #ffc107;
+    background: #fff8e1;
+    color: #e65100;
+    border: 1px solid #ff9800;
+    font-weight: 600;
 }
 
 .results-actions {
@@ -388,7 +394,7 @@ h2::before {
 }
 
 .changes-summary {
-    background: linear-gradient(45deg, #f8f9fa, #ffffff);
+    background: #f5f7fa;
     padding: 25px;
     border-radius: 16px;
     margin-bottom: 25px;
@@ -409,12 +415,13 @@ h2::before {
 
 .changes-list li {
     padding: 8px 0;
-    color: #555;
+    color: #2d3748;
     transition: color 0.2s ease;
+    font-weight: 500;
 }
 
 .changes-list li:hover {
-    color: #333;
+    color: #1a202c;
 }
 
 .changes-list li::before {
