@@ -1,0 +1,612 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 40px 30px;
+    border-radius: 24px;
+    margin-bottom: 30px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+header h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.02em;
+}
+
+header p {
+    font-size: 1.2rem;
+    color: #666;
+    font-weight: 400;
+}
+
+main {
+    display: grid;
+    gap: 30px;
+}
+
+.upload-section,
+.paste-section,
+.process-section,
+.results-section {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.upload-section:hover,
+.paste-section:hover,
+.process-section:hover,
+.results-section:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+}
+
+h2 {
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 25px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+h2::before {
+    content: "▶";
+    color: #667eea;
+    font-size: 1.2em;
+    transition: transform 0.3s ease;
+}
+
+.upload-section:hover h2::before,
+.paste-section:hover h2::before,
+.process-section:hover h2::before,
+.results-section:hover h2::before {
+    transform: translateX(3px);
+}
+
+.file-upload {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+#fileInput {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+}
+
+.upload-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    padding: 50px 40px;
+    border: 3px dashed #667eea;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: linear-gradient(45deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
+    position: relative;
+    overflow: hidden;
+}
+
+.upload-label::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+    transition: left 0.5s;
+}
+
+.upload-label:hover {
+    border-color: #764ba2;
+    background: linear-gradient(45deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.2);
+}
+
+.upload-label:hover::before {
+    left: 100%;
+}
+
+.upload-icon {
+    font-size: 2.5rem;
+    transition: transform 0.3s ease;
+}
+
+.upload-label:hover .upload-icon {
+    transform: scale(1.1);
+}
+
+.upload-text {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #667eea;
+    transition: color 0.3s ease;
+}
+
+.upload-label:hover .upload-text {
+    color: #764ba2;
+}
+
+.file-info {
+    margin-top: 15px;
+    padding: 16px 20px;
+    background: linear-gradient(45deg, #e8f5e8, #f0f8f0);
+    border-radius: 12px;
+    border-left: 4px solid #4caf50;
+    animation: slideIn 0.3s ease;
+}
+
+.file-info.error {
+    background: linear-gradient(45deg, #ffeaea, #fff0f0);
+    border-left-color: #f44336;
+    color: #d32f2f;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#codeInput {
+    width: 100%;
+    padding: 24px;
+    border: 2px solid #e0e0e0;
+    border-radius: 16px;
+    font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    resize: vertical;
+    min-height: 350px;
+    background: linear-gradient(45deg, #f8f9fa, #ffffff);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+#codeInput:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1), inset 0 2px 4px rgba(0, 0, 0, 0.02);
+    transform: translateY(-1px);
+}
+
+#codeInput::placeholder {
+    color: #999;
+    font-style: italic;
+}
+
+.process-section {
+    text-align: center;
+}
+
+.process-btn {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    padding: 20px 50px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 220px;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+
+.process-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.process-btn:hover:not(:disabled) {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+}
+
+.process-btn:hover:not(:disabled)::before {
+    left: 100%;
+}
+
+.process-btn:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.process-btn:disabled {
+    background: linear-gradient(45deg, #ccc, #bbb);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.btn-icon {
+    font-size: 1.1em;
+    transition: transform 0.3s ease;
+}
+
+.process-btn:hover:not(:disabled) .btn-icon {
+    transform: scale(1.1);
+}
+
+.status {
+    margin-top: 25px;
+    padding: 18px 24px;
+    border-radius: 12px;
+    font-weight: 500;
+    animation: slideIn 0.3s ease;
+}
+
+.status.success {
+    background: linear-gradient(45deg, #e8f5e8, #f0f8f0);
+    color: #2e7d32;
+    border: 1px solid #4caf50;
+}
+
+.status.error {
+    background: linear-gradient(45deg, #ffeaea, #fff0f0);
+    color: #d32f2f;
+    border: 1px solid #f44336;
+}
+
+.status.processing {
+    background: linear-gradient(45deg, #fff3cd, #fffacd);
+    color: #856404;
+    border: 1px solid #ffc107;
+}
+
+.results-actions {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.action-btn {
+    padding: 14px 30px;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    overflow: hidden;
+    min-width: 160px;
+    justify-content: center;
+}
+
+.action-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.copy-btn {
+    background: linear-gradient(45deg, #28a745, #20c997);
+    color: white;
+    box-shadow: 0 6px 20px rgba(40, 167, 69, 0.3);
+}
+
+.copy-btn:hover {
+    background: linear-gradient(45deg, #218838, #1ea087);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(40, 167, 69, 0.4);
+}
+
+.copy-btn:hover::before {
+    left: 100%;
+}
+
+.copy-btn.copied {
+    background: linear-gradient(45deg, #4caf50, #2e7d32);
+    animation: pulse 0.3s ease;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.download-btn {
+    background: linear-gradient(45deg, #007bff, #6610f2);
+    color: white;
+    box-shadow: 0 6px 20px rgba(0, 123, 255, 0.3);
+}
+
+.download-btn:hover {
+    background: linear-gradient(45deg, #0056b3, #520dc2);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 123, 255, 0.4);
+}
+
+.download-btn:hover::before {
+    left: 100%;
+}
+
+.changes-summary {
+    background: linear-gradient(45deg, #f8f9fa, #ffffff);
+    padding: 25px;
+    border-radius: 16px;
+    margin-bottom: 25px;
+    border-left: 4px solid #667eea;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.changes-summary h3 {
+    color: #667eea;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.changes-list {
+    list-style: none;
+    padding: 0;
+}
+
+.changes-list li {
+    padding: 8px 0;
+    color: #555;
+    transition: color 0.2s ease;
+}
+
+.changes-list li:hover {
+    color: #333;
+}
+
+.changes-list li::before {
+    content: "✓ ";
+    color: #28a745;
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+.code-preview {
+    background: linear-gradient(135deg, #1e1e1e, #2a2a2a);
+    border-radius: 16px;
+    overflow: hidden;
+    max-height: 500px;
+    overflow-y: auto;
+    box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3);
+    border: 1px solid #444;
+}
+
+.code-preview::-webkit-scrollbar {
+    width: 8px;
+}
+
+.code-preview::-webkit-scrollbar-track {
+    background: #2a2a2a;
+}
+
+.code-preview::-webkit-scrollbar-thumb {
+    background: #555;
+    border-radius: 4px;
+}
+
+.code-preview::-webkit-scrollbar-thumb:hover {
+    background: #777;
+}
+
+.code-preview pre {
+    margin: 0;
+    padding: 25px;
+    overflow-x: auto;
+}
+
+.code-preview code {
+    color: #d4d4d4;
+    font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    white-space: pre;
+}
+
+.hidden {
+    display: none;
+}
+
+.toast {
+    position: fixed;
+    top: 25px;
+    right: 25px;
+    padding: 16px 28px;
+    background: linear-gradient(45deg, #333, #444);
+    color: white;
+    border-radius: 12px;
+    font-weight: 500;
+    z-index: 1000;
+    transform: translateX(400px);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+.toast.show {
+    transform: translateX(0);
+}
+
+.toast.success {
+    background: linear-gradient(45deg, #28a745, #20c997);
+}
+
+.toast.error {
+    background: linear-gradient(45deg, #dc3545, #c82333);
+}
+
+footer {
+    text-align: center;
+    margin-top: 50px;
+    padding: 25px;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 400;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+    
+    header {
+        padding: 30px 20px;
+    }
+    
+    header h1 {
+        font-size: 2.2rem;
+    }
+    
+    .upload-section,
+    .paste-section,
+    .process-section,
+    .results-section {
+        padding: 25px 20px;
+    }
+    
+    .upload-label {
+        padding: 40px 30px;
+    }
+    
+    .results-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .action-btn {
+        width: 200px;
+        justify-content: center;
+    }
+    
+    .process-btn {
+        padding: 18px 40px;
+        min-width: 200px;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.8rem;
+    }
+    
+    #codeInput {
+        padding: 20px;
+        min-height: 300px;
+    }
+    
+    .upload-label {
+        padding: 30px 20px;
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .upload-icon {
+        font-size: 2rem;
+    }
+    
+    .upload-text {
+        font-size: 1.1rem;
+    }
+}
+
+/* Loading animation */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.process-btn.loading .btn-icon {
+    animation: spin 1s linear infinite;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    body {
+        background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
+    }
+    
+    .upload-section,
+    .paste-section,
+    .process-section,
+    .results-section,
+    header {
+        background: rgba(45, 55, 72, 0.95);
+        color: #e2e8f0;
+    }
+    
+    h2 {
+        color: #e2e8f0;
+    }
+    
+    #codeInput {
+        background: linear-gradient(45deg, #2d3748, #4a5568);
+        color: #e2e8f0;
+        border-color: #4a5568;
+    }
+    
+    #codeInput::placeholder {
+        color: #a0aec0;
+    }
+}
